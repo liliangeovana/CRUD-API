@@ -77,7 +77,7 @@ npm install (ou i) express
 - Assim, ainda no arquivo `server.js`:
 ~~~javascript
 app.get('/', (req, res)=> {
-
+    res.send('Hello NODE API')
 });
 ~~~
 1. `get` = obter a rota.
@@ -85,5 +85,47 @@ app.get('/', (req, res)=> {
 3. `()` = função de retorno com dois parâmetros.
     - req (request) -> O que o cliente requisita.
     - res (response) -> O que é devolvido ao cliente.
+4. `res.send('...')` -> usa o parâmetro response (res) para enviar (send) a mensagem para o cliente.
+5. Com o `npm run server` rodando (aplicação rodando), no navegador, digita-se `localhost:numero_porta`
+- **PARAR O SERVER/APLICAÇÃO** `CONTROL + C`
+
+# NODEMON
+
+- Em uma aplicação NodeJS, se eu desejar uma nova criar uma nova rota, por exemplo: 
+~~~javascript
+app.get('/', (req, res)=> {
+    res.send('Hello NODE API')
+});
+
+app.get('/blog', (req, res)=> {
+    res.send('Hello blog')
+});
+~~~
+
+E tentar acessa-la pelo `localhost:3000/blog` não haverá resposta no navegador, pois, é necessário parar a aplicação e rodá-la outra vez.
+- Sempre que houver uma mudança no projeto, preciso pará-lo e inicia-lo outra vez.
+- Desse modo, usa-se o NODEMON para resolver essa questão.
+
+### Instalação:
+1. `npm i nodemon -D`
+2. No arquivo `package.js` será acrescentado:
+~~~json
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+}
+~~~
+3. E, ao invés de iniciar a aplicação pelo `server`. Iniciará pelo novo atributo definido, que utiliza o nodemon
+ ~~~json
+ "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node server.js",
+    //RODAR A APLICAÇÃO COM NODEMON
+    "dev": "nodemon server.js"
+  },
+ ~~~
+ - No terminal `npm run dev`
+ - Ao fazer alterações no código e atualizar o servidor, as mudanças serão automáticas.
+
+
 
     

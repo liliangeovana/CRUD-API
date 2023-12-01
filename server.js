@@ -1,8 +1,11 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const Produto = require('./modelos/modeloProduto')
 const app = express();
 
+//PERMITE A APLICAÇÃO A TER ACESSO A DADOS JSON
+app.use(express.json())
 
 //ROTAS
 app.get('/', (req, res)=> {
@@ -12,6 +15,16 @@ app.get('/', (req, res)=> {
 app.get('/blog', (req, res)=> {
     res.send('Hello blog');
 });
+
+app.post('/produto', async(req, res)=> {
+    try {
+        const produto = await Produto.create(req.body)
+        res.status(200).json(produto);        
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
+})
 
 //CONEXÃO COM BANCO DE DADOS
 mongoose.connect('mongodb+srv://admin:E$tagio2023@urlapi.vpfqkqh.mongodb.net/Node-API?retryWrites=true&w=majority').then(()=>{

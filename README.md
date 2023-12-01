@@ -234,3 +234,37 @@ const Produto = mongoose.model('Produto', esquemaProduto);
 ~~~javascript
 module.exports = Produto;
 ~~~
+
+### Usando o Modelo para salvar dados no MongoDB
+
+- Para salvar dados no Banco de Dados, é necessário usar o modelo.
+    - Por exemplo, se eu quisar salva um produto dentro de "Dados do Produto", preciso do "Modelo do Produto".
+
+- No `server.js`:
+1. Variável produto que requisita o modelo definido anteriormente.
+    ~~~javascript
+    const Produto = require('./modelos/modeloProduto')
+    ~~~
+2. Adiciona um intermediário que permite a aplicação ter acesso aos dados JSON.
+    ~~~javascript
+    app.use(express.json())
+    ~~~
+3. Adiciona a rota que fará a inserção dos dados
+    ~~~javascript
+    app.post('/produto', async(req, res)=> {
+    try {
+        const produto = await Produto.create(req.body)
+        res.status(200).json(produto);        
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
+    })
+    ~~~
+    > Quando uma requisição POST é recebida nessa rota, o código tenta criar um novo produto utilizando os dados enviados no corpo da requisição (req.body).
+
+    > Se a criação for bem-sucedida, o servidor responde com um status HTTP 200 (OK) e retorna os dados do produto recém-criado em formato JSON.
+
+    > Se houver algum erro durante a criação do produto, o código captura esse erro, registra a mensagem de erro no console do servidor e responde à requisição com um status HTTP 500 (Internal Server Error), incluindo a mensagem de erro em formato JSON na resposta.
+    
+    > Método POST não é retornável no navegador, logo, necessário utilizar Insomnia ou o Postman.

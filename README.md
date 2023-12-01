@@ -182,7 +182,7 @@ mongoose.connect('mongodb+srv://admin:E$tagio2023@urlapi.vpfqkqh.mongodb.net/Nod
 - Visualizar em diagrama:
 > Site para planejar: `https://app.diagrams.net/`
 
-![database diagram](image.png)
+<img height="300" width="300" src="img-estudo/image.png">
 
 #### Esquema
 

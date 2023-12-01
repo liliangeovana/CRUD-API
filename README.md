@@ -126,6 +126,111 @@ E tentar acessa-la pelo `localhost:3000/blog` não haverá resposta no navegador
  - No terminal `npm run dev`
  - Ao fazer alterações no código e atualizar o servidor, as mudanças serão automáticas.
 
+ # CONECTANDO COM DATABASE (MONGODB)
 
+ - Para conectar o NodeJS ao MongoDB é necessário o uso do package `mongoose`
 
+- Instalar: `npm i mongoose`
+
+- Buscar na documentação, no site `npmjs`, como **importar** para poder conectar a base de dados.
+
+- Criar uma database no site do MongoDB
+    - Configurar admin e senha
+    - Cluster pode ser o nome do objetivo da database
+
+- No arquivo do `server.js` criar a variável que traz o pacote instalado `mongoose`.
+~~~javascript
+const mongoose = require('mongoose');
+~~~
+
+- No código colocar a linha de conexão encontrada no "CONNECT" - instrução no site do MongoDB, ao abrir a database.
+
+~~~javascript
+mongoose.connect('mongodb+srv://admin:<password>@urlapi.vpfqkqh.mongodb.net/Node-API?retryWrites=true&w=majority')
+~~~
+
+> Após o `net/` insere-se o nome da collection que deseja-se criar. No exemplo, nomeou-se `/Node-API?..`
+
+- Posteriormente, usando funções de retorno, coloca-se a mensagem de sucesso ou erro na conexão com o banco.
+
+~~~javascript
+mongoose.connect('mongodb+srv://admin:E$tagio2023@urlapi.vpfqkqh.mongodb.net/Node-API?retryWrites=true&w=majority'). then(()=>{
+    console.log ('Conectado ao MongoDB');
+}).catch((error)=>{
+    console.log(error);
+})
+~~~
+
+- Recomenda-se a conexão com o banco de dados seja feita antes da aplicação ser executada. Dessa forma, podemos trazer o trecho do `app.listen` para dentro da conexão:
+
+~~~javascript
+//CONEXÃO COM BANCO DE DADOS
+mongoose.connect('mongodb+srv://admin:E$tagio2023@urlapi.vpfqkqh.mongodb.net/Node-API?retryWrites=true&w=majority').then(()=>{
+    console.log ('Conectado ao MongoDB');
+        //INICIANDO SERVIDOR
+        app.listen(3000, ()=>{
+            console.log('Node API app está rodando na porta 3000');
+        });
+}).catch((error)=>{
+    console.log(error);
+})
+~~~
+> Mensagem de conexão como banco de dados é opcional.
+
+### Criando modelo de dados no MongoDB
+
+- Visualizar em diagrama:
+> Site para planejar: `https://app.diagrams.net/`
+
+![database diagram](image.png)
+
+#### Esquema
+
+1. Para termos um Modelo De Produto, precisa-se do **Esquema do Produto**.
+    - Dessa forma, cria-se uma pasta de `modelos` e um arquivo `modeloProduto.js` onde serão definidas as informações (esquema) dos dados.
     
+     - Na variável `esquemaProduto = mongoose.Screma({})` é definido o esquema:
+
+     ~~~ javascript
+     const mongoose = require('mongoose');
+
+    const esquemaProduto = mongoose.Schema(
+        {
+            nome: {
+                type: String,
+                required: (true, "Por favor, insira o nome do produto: ")
+            },
+
+            quantidade: {
+                type: Number,
+                required: true,
+                default: 0
+            },
+
+            preco: {
+                type: Number,
+                required: true
+            }
+        }, 
+        {
+      
+       timestamps: true
+        }
+    );
+     ~~~
+> timestamp: cria dois campos que rastreiam quando dados são salvos ou alterados no banco de dados.
+
+#### Modelo
+
+- Com o esquema definido, pode-se criar o modelo.
+
+~~~javascript
+const Produto = mongoose.model('Produto', esquemaProduto);
+~~~
+> Modelo denominado 'Produto'
+
+- Assim, exporta-se esse modelo:
+
+~~~javascript
+module.exports = Produto;
+~~~

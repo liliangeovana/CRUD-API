@@ -30,14 +30,27 @@ app.post('/produtos', async(req, res)=> {
 //TRAZER PRODUTOS CADASTRADOS
 app.get('/produtos', async(req, res) => {
     try {
-        const produto = await Produto.find({});
-        res.status(200).json(produto);
+        //await = para esperar os dados que virão do banco
+        //{} vazios = trazer todos os produtos
+        const produtos = await Produto.find({});
+        res.status(200).json(produtos);
     } catch (error) {
         console.log(error.message);
         res.status(500).json({message: error.message})
     }
 })
 
+//TRAZER UM PRODUTO PELO ID
+app.get('/produtos/:id', async(req, res) => {
+    try {
+        const{id} = req.params;
+        const produto = await Produto.findById({id});
+        res.status(200).json(produto);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({message: error.message})
+    }
+})
 //CONEXÃO COM BANCO DE DADOS
 mongoose.connect('mongodb+srv://admin:E$tagio2023@urlapi.vpfqkqh.mongodb.net/Node-API?retryWrites=true&w=majority').then(()=>{
     console.log ('Conectado ao MongoDB');

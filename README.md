@@ -266,5 +266,9 @@ module.exports = Produto;
     > Se a criação for bem-sucedida, o servidor responde com um status HTTP 200 (OK) e retorna os dados do produto recém-criado em formato JSON.
 
     > Se houver algum erro durante a criação do produto, o código captura esse erro, registra a mensagem de erro no console do servidor e responde à requisição com um status HTTP 500 (Internal Server Error), incluindo a mensagem de erro em formato JSON na resposta.
-    
+
     > Método POST não é retornável no navegador, logo, necessário utilizar Insomnia ou o Postman.
+
+- PS: Com a aplicação rodando, os dados são inseridos por meio de um arquivo JSON no Insomnia ou no Postman.
+
+### Juntando ou Trazendo dados do Banco de Dados

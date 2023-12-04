@@ -3,7 +3,7 @@
 - Exemplo desenvolvido para o cadastro de produtos.
 
 
-## Primeiros Passos
+## Anotações 1 - Primeiros Passos
 
 - [x] Iniciar um novo projeto Node.js e criar um arquivo `package.json`.
 - [x] Arquivo `server.js`
@@ -17,3 +17,8 @@
 - [x] Exibir os produtos cadastrados
 - [x] Editar os produtos cadastrados
 - [x] Deletar os produtos cadastrados
+
+## Anotações 2 - Refatoração e Implementação(deploy)
+
+- [x] Arquivo `.env` - refatorando conexão com o banco de dados.
+- [ ] Implementação da arquitetura MVC

@@ -1,8 +1,12 @@
 
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const Produto = require('./modelos/modeloProduto')
 const app = express();
+
+const MONGO_URL = process.env.MONGO_URL;
+const PORT = process.env.PORT || 3000;
 
 //PERMITE A APLICAÇÃO A TER ACESSO A DADOS JSON
 app.use(express.json())
@@ -81,11 +85,11 @@ app.delete('/produtos/:id', async(req, res) => {
 })
 
 //CONEXÃO COM BANCO DE DADOS
-mongoose.connect('mongodb+srv://admin:E$tagio2023@urlapi.vpfqkqh.mongodb.net/Node-API?retryWrites=true&w=majority').then(()=>{
+mongoose.connect(MONGO_URL).then(()=>{
     console.log ('Conectado ao MongoDB');
         //INICIANDO SERVIDOR
-        app.listen(3000, ()=>{
-            console.log('Node API app está rodando na porta 3000');
+        app.listen(PORT, ()=>{
+            console.log(`Node API app está rodando na porta ${PORT}`);
         });
 }).catch((error)=>{
     console.log(error);

@@ -22,4 +22,5 @@
 
 - [x] Arquivo `.env` - refatorando conexão com o banco de dados.
 - [ ] Arquitetura MVC
-    - [ ] Pasta routes
+    - [x] Pasta routes
+    - [ ] Criar os controladores (controllers)

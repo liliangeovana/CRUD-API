@@ -21,4 +21,5 @@
 ## Anotações 2 - Refatoração e Implementação(deploy)
 
 - [x] Arquivo `.env` - refatorando conexão com o banco de dados.
-- [ ] Implementação da arquitetura MVC
+- [ ] Arquitetura MVC
+    - [ ] Pasta routes

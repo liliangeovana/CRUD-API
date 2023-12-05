@@ -2,11 +2,13 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const Produto = require('./modelos/modeloProduto')
+const productRoute = require('./routes/productRoute');
+
 const app = express();
 
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 3000;
+
 
 //PERMITE A APLICAÇÃO A TER ACESSO A DADOS JSON
 app.use(express.json())
@@ -19,6 +21,8 @@ app.get('/blog', (req, res)=> {
     res.send('Hello blog');
 });
 
+//ROTAS
+app.use('/api/produtos', productRoute);
 
 //CONEXÃO COM BANCO DE DADOS
 mongoose.connect(MONGO_URL).then(()=>{
